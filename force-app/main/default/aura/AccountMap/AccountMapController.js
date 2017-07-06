@@ -13,5 +13,23 @@
       ).addTo(map);
       component.set('v.map', map);
     });
+  },
+
+  accountsLoaded: function(component, event, helper) {
+    // Add markers
+    var map = component.get('v.map');
+    if (map) {
+      map.remove();
+    }
+
+    var accounts = event.getParam('accounts');
+    for (var i = 0; i < accounts.length; i++) {
+      var account = accounts[i];
+      var latLng = [
+        account.Location__Latitude__s,
+        account.Location__Longitude__s
+      ];
+      L.marker(latLng, { account: account }).addTo(map);
+    }
   }
 });
